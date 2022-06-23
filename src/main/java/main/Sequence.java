@@ -1,29 +1,37 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Locale;
 
 public class Sequence {
     public static void main(String[] args) {
 
 //        System.out.println(createPhrases(args[0]));
-        createPhrases("It's a trap that I cannot!");
-
-
+        System.out.println(createPhraseArray("It's a trap that I cannot avoid!"));
 
     }
 
 
+    public static ArrayList<String> createPhraseArray(String text) {
 
-    private static void createPhrases(String text) {
         // Split text into individual words, separated by space
         String[] words = text.split(" ");
 
-        StringBuilder phrase = new StringBuilder();
-        for (int i = 0; i < words.length - 3; i++) {
-            phrase.append(words[i] + " ");
+        ArrayList<String> phrases = new ArrayList<>();
+        for (int i = 0; i < words.length - 2; i++) {
+            phrases.add(words[i] + " " + words[i + 1] + " " + words[i + 2]);
         }
-        System.out.println(phrase);
+
+        for (String phrase : phrases) {
+            if (phrase.length() == 11) {
+                System.out.println("ONE");
+            }
+        }
+
+        return phrases;
     }
 
+
+
 }
+
