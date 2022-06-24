@@ -1,14 +1,25 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class Sequence {
     public static void main(String[] args) {
 
-        System.out.println(createPhraseArray("It's a trap, that I cannot avoid! It's a trap,"));
+        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            System.out.println(reader.readLine());
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
 
     }
 
@@ -35,19 +46,28 @@ public class Sequence {
             phrases.add(phrase);
         }
 
-        // Create new array just for duplicate strings
-        Set<String> duplicates = new HashSet<>();
+        // Create new array that rejects duplicate strings
+        Set<String> singleOccurrences = new HashSet<>();
+
+        // Create Hashmap for storing key and value of times found
+        HashMap<String, Integer> phraseCount = new HashMap<>();
+
 
         for (String phrase : phrases) {
-            if (!duplicates.add(phrase)) {
-                System.out.println("ONE");
+            //if the phrase is already in the map, increase the count
+            if (phraseCount.containsKey(phrase)){
+                phraseCount.put(phrase, phraseCount.get(phrase) + 1);
+            } else{
+                phraseCount.put(phrase, 1);
             }
         }
 
+        //sort array
+
+        //print out results
+        System.out.println(phraseCount);
         return phrases;
     }
-
-
 
 
 }
