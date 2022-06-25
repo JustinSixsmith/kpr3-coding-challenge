@@ -1,23 +1,35 @@
 package main;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Sequence {
     public static void main(String[] args) {
 
-        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
+        File file = new File(args[0]);
+        String fileContent = "";
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            System.out.println(reader.readLine());
-            reader.close();
-        } catch (IOException e) {
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                fileContent = fileContent.concat(scanner.nextLine()) + "\n";
+            }
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+createPhraseArray(fileContent);
+
+//        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
+//
+//        try {
+//            BufferedReader reader = new BufferedReader(new FileReader(path));
+//            System.out.println(reader.readLine());
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 //        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
 
