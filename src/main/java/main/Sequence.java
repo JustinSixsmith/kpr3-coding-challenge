@@ -36,12 +36,12 @@ createPhraseArray(fileContent);
     }
 
 
-    public static ArrayList<String> createPhraseArray(String text) {
+    public static LinkedList<String> createPhraseArray(String text) {
         // Split text into individual words
         String[] words = text.split(" ");
 
         // Initialize array of three sequential word phrases
-        ArrayList<String> phrases = new ArrayList<>();
+        LinkedList<String> phrases = new LinkedList<>();
 
         // Iterate over words array
         for (int i = 0; i < words.length - 2; i++) {
@@ -58,26 +58,32 @@ createPhraseArray(fileContent);
             phrases.add(phrase);
         }
 
-        // Create new array that rejects duplicate strings
-        Set<String> singleOccurrences = new HashSet<>();
-
         // Create Hashmap for storing key and value of times found
-        HashMap<String, Integer> phraseCount = new HashMap<>();
+        HashMap<String, Integer> phraseCounts = new HashMap<>();
 
 
         for (String phrase : phrases) {
             //if the phrase is already in the map, increase the count
-            if (phraseCount.containsKey(phrase)){
-                phraseCount.put(phrase, phraseCount.get(phrase) + 1);
+            if (phraseCounts.containsKey(phrase)){
+                phraseCounts.put(phrase, phraseCounts.get(phrase) + 1);
             } else{
-                phraseCount.put(phrase, 1);
+                phraseCounts.put(phrase, 1);
             }
         }
+
+        List<Map.Entry<String, Integer>> phraseList = new ArrayList<>(phraseCounts.entrySet());
+
+        phraseList.sort(new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return o2.getValue() - o1.getValue();
+            }
+        });
 
         //sort array
 
         //print out results
-        System.out.println(phraseCount);
+        System.out.println(phraseCounts);
         return phrases;
     }
 
