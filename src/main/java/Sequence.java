@@ -1,5 +1,3 @@
-package main;
-
 import java.io.*;
 import java.util.*;
 
@@ -19,29 +17,29 @@ public class Sequence {
             e.printStackTrace();
         }
 
-createPhraseArray(fileContent);
+        createPhraseArray(fileContent);
 
-//        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
-//
-//        try {
-//            BufferedReader reader = new BufferedReader(new FileReader(path));
-//            System.out.println(reader.readLine());
-//            reader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
 
-//        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            System.out.println(reader.readLine());
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
 
     }
 
 
-    public static LinkedList<String> createPhraseArray(String text) {
+    public static ArrayList<String> createPhraseArray(String text) {
         // Split text into individual words
         String[] words = text.split(" ");
 
         // Initialize array of three sequential word phrases
-        LinkedList<String> phrases = new LinkedList<>();
+        ArrayList<String> phrases = new ArrayList<>();
 
         // Iterate over words array
         for (int i = 0; i < words.length - 2; i++) {
@@ -64,21 +62,21 @@ createPhraseArray(fileContent);
 
         for (String phrase : phrases) {
             //if the phrase is already in the map, increase the count
-            if (phraseCounts.containsKey(phrase)){
+            if (phraseCounts.containsKey(phrase)) {
                 phraseCounts.put(phrase, phraseCounts.get(phrase) + 1);
-            } else{
+            } else {
                 phraseCounts.put(phrase, 1);
             }
         }
 
-        List<Map.Entry<String, Integer>> phraseList = new ArrayList<>(phraseCounts.entrySet());
-
-        phraseList.sort(new Comparator<Map.Entry<String, Integer>>() {
-            @Override
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return o2.getValue() - o1.getValue();
-            }
-        });
+//        ArrayList<Map.Entry<String, Integer>> phraseList = new ArrayList<>(phraseCounts.entrySet());
+//
+//        Collections.sort(phraseList, new Comparator<Map.Entry<String, Integer>>() {
+//            @Override
+//            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+//                return o.getValue() - o2.getValue();
+//            }
+//        });
 
         //sort array
 
