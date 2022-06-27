@@ -25,7 +25,7 @@ public class Sequence {
         ArrayList<String> phraseArray = createPhraseArray(fileContent);
 
         // Count how many times each phrase shows up in that array
-        TreeMap<String, Integer> phraseCounts = countPhrases(phraseArray);
+        HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
 
         // Print out the sorted phrases
         topOneHundred(phraseCounts);
@@ -55,9 +55,9 @@ public class Sequence {
         return phrases;
     }
 
-    public static TreeMap<String, Integer> countPhrases(ArrayList<String> phrases) {
+    public static HashMap<String, Integer> countPhrases(ArrayList<String> phrases) {
         // Create Hashmap for storing key and value of times found
-        TreeMap<String, Integer> phraseCounts = new TreeMap<>();
+        HashMap<String, Integer> phraseCounts = new HashMap<>();
 
         for (String phrase : phrases) {
             //if the phrase is already in the map, increase the count
