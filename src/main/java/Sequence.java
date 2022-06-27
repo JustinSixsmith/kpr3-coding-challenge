@@ -1,9 +1,13 @@
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Sequence {
+    private static final boolean DESC = false;
+
     public static void main(String[] args) {
 
+        // Scan a file taken in as args
         File file = new File(args[0]);
         String fileContent = "";
 
@@ -17,22 +21,32 @@ public class Sequence {
             e.printStackTrace();
         }
 
-        createPhraseArray(fileContent);
+        // Make an array out of the file with each element consisting of three sequential words
+        ArrayList<String> phraseArray = createPhraseArray(fileContent);
 
-        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
+        // Count how many times each phrase shows up in that array
+        HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            System.out.println(reader.readLine());
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Sort the HashMap by values
+        Map<String, Integer> sortedMapDesc = sortByValue(phraseCounts, DESC);
 
-        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
+        // Print out the sorted phrases
+        printMap(sortedMapDesc);
+
+
+//        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
+//
+//        try {
+//            BufferedReader reader = new BufferedReader(new FileReader(path));
+//            System.out.println(reader.readLine());
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
 
     }
-
 
     public static ArrayList<String> createPhraseArray(String text) {
         // Split text into individual words
@@ -55,10 +69,12 @@ public class Sequence {
             // Add to the array
             phrases.add(phrase);
         }
+        return phrases;
+    }
 
+    public static HashMap<String, Integer> countPhrases(ArrayList<String> phrases) {
         // Create Hashmap for storing key and value of times found
         HashMap<String, Integer> phraseCounts = new HashMap<>();
-
 
         for (String phrase : phrases) {
             //if the phrase is already in the map, increase the count
@@ -68,21 +84,25 @@ public class Sequence {
                 phraseCounts.put(phrase, 1);
             }
         }
+        return phraseCounts;
+    }
 
-//        ArrayList<Map.Entry<String, Integer>> phraseList = new ArrayList<>(phraseCounts.entrySet());
-//
-//        Collections.sort(phraseList, new Comparator<Map.Entry<String, Integer>>() {
-//            @Override
-//            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-//                return o.getValue() - o2.getValue();
-//            }
-//        });
+    private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
+        List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
 
-        //sort array
+        // Sorting the list based on values
+        list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
+                ? o1.getKey().compareTo(o2.getKey())
+                : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
+                ? o2.getKey().compareTo(o1.getKey())
+                : o2.getValue().compareTo(o1.getValue()));
+        return list.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, LinkedHashMap::new));
 
-        //print out results
-        System.out.println(phraseCounts);
-        return phrases;
+    }
+
+    private static void printMap(Map<String, Integer> map) {
+        map.forEach((key, value) -> System.out.println(key + " " + value));
+
     }
 
 
