@@ -3,9 +3,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Sequence {
-    private static final boolean DESC = false;
-
     public static void main(String[] args) {
+
+        //        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
 
         // Scan a file taken in as args
         File file = new File(args[0]);
@@ -25,27 +25,10 @@ public class Sequence {
         ArrayList<String> phraseArray = createPhraseArray(fileContent);
 
         // Count how many times each phrase shows up in that array
-        HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
-
-        // Sort the HashMap by values
-        Map<String, Integer> sortedMapDesc = sortByValue(phraseCounts, DESC);
+        TreeMap<String, Integer> phraseCounts = countPhrases(phraseArray);
 
         // Print out the sorted phrases
-        printMap(sortedMapDesc);
-
-
-//        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
-//
-//        try {
-//            BufferedReader reader = new BufferedReader(new FileReader(path));
-//            System.out.println(reader.readLine());
-//            reader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        createPhraseArray("It's a trap, that I cannot avoid! It's a trap! It's a trap, that I cannot avoid! It's a trap! ");
-
+        topOneHundred(phraseCounts);
     }
 
     public static ArrayList<String> createPhraseArray(String text) {
@@ -59,9 +42,9 @@ public class Sequence {
         for (int i = 0; i < words.length - 2; i++) {
 
             // Trim spaces around each word, make lower case, and remove punctuation
-            String trimWord1 = words[i].toLowerCase().trim().replaceAll("[^a-z ]", "");
-            String trimWord2 = words[i + 1].toLowerCase().trim().replaceAll("[^a-z ]", "");
-            String trimWord3 = words[i + 2].toLowerCase().trim().replaceAll("[^a-z ]", "");
+            String trimWord1 = words[i].toLowerCase().trim().replaceAll("[^a-z-']", "");
+            String trimWord2 = words[i + 1].toLowerCase().trim().replaceAll("[^a-z-']", "");
+            String trimWord3 = words[i + 2].toLowerCase().trim().replaceAll("[^a-z-']", "");
 
             // Create new three words strings
             String phrase = trimWord1 + " " + trimWord2 + " " + trimWord3;
@@ -72,9 +55,9 @@ public class Sequence {
         return phrases;
     }
 
-    public static HashMap<String, Integer> countPhrases(ArrayList<String> phrases) {
+    public static TreeMap<String, Integer> countPhrases(ArrayList<String> phrases) {
         // Create Hashmap for storing key and value of times found
-        HashMap<String, Integer> phraseCounts = new HashMap<>();
+        TreeMap<String, Integer> phraseCounts = new TreeMap<>();
 
         for (String phrase : phrases) {
             //if the phrase is already in the map, increase the count
@@ -83,28 +66,21 @@ public class Sequence {
             } else {
                 phraseCounts.put(phrase, 1);
             }
+            phraseCounts.remove("  ");
         }
         return phraseCounts;
     }
 
-    private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap, final boolean order) {
-        List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortMap.entrySet());
+    private static void topOneHundred(Map<String, Integer> map) {
+        // List w/top 100 keys
+        List<String> keys = map.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(100).map(Map.Entry::getKey).collect(Collectors.toList());
+        // List w/top 100 values
+        List<Integer> values = map.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(100).map(Map.Entry::getValue).collect(Collectors.toList());
 
-        // Sorting the list based on values
-        list.sort((o1, o2) -> order ? o1.getValue().compareTo(o2.getValue()) == 0
-                ? o1.getKey().compareTo(o2.getKey())
-                : o1.getValue().compareTo(o2.getValue()) : o2.getValue().compareTo(o1.getValue()) == 0
-                ? o2.getKey().compareTo(o1.getKey())
-                : o2.getValue().compareTo(o1.getValue()));
-        return list.stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, LinkedHashMap::new));
-
+        for (int i = 0; i < keys.size(); i++) {
+            System.out.println(keys.get(i) + " - " + values.get(i));
+        }
     }
-
-    private static void printMap(Map<String, Integer> map) {
-        map.forEach((key, value) -> System.out.println(key + " " + value));
-
-    }
-
 
 }
 
