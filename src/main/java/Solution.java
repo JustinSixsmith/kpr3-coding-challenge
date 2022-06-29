@@ -8,30 +8,31 @@ public class Solution {
         //        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
 
         // Scan a file taken in as args
-        File file = new File(args[0]);
-        String fileContent = "";
-
-        try {
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                fileContent = fileContent.concat(scanner.nextLine()) + "\n";
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // Make an array out of the file with each element consisting of three sequential words
-        ArrayList<String> phraseArray = createPhraseArray(fileContent);
-
-        // Count how many times each phrase shows up in that array
-        HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
-
-        // Print out the sorted phrases
-        topOneHundred(phraseCounts);
+//        File file = new File(args[0]);
+//        String fileContent = "";
+//
+//        try {
+//            Scanner scanner = new Scanner(file);
+//
+//            while (scanner.hasNextLine()) {
+//                fileContent = fileContent.concat(scanner.nextLine()) + "\n";
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Make an array out of the file with each element consisting of three sequential words
+//        ArrayList<String> phraseArray = createPhraseArray(fileContent);
+//
+//        // Count how many times each phrase shows up in that array
+//        HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
+//
+//        // Print out the sorted phrases
+//        topOneHundred(phraseCounts);
 
 
         System.out.println(createPhraseArray("This is a string."));
+        System.out.println(sayHello("Bob"));
     }
 
     public static String sayHello(String name) {
