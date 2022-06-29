@@ -34,6 +34,11 @@ public class Solution {
         System.out.println(createPhraseArray("This is a string."));
     }
 
+    public static String sayHello(String name) {
+        return "Hello, " + name;
+    }
+
+
     public static ArrayList<String> createPhraseArray(String text) {
         // Split text into individual words
         String[] words = text.split(" ");
