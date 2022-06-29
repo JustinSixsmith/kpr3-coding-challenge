@@ -15,7 +15,7 @@ public class Solution {
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
-                fileContent = fileContent.concat(scanner.nextLine()) + "\n";
+                    fileContent = fileContent.concat(scanner.nextLine()) + " \n";
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -27,7 +27,7 @@ public class Solution {
         // Count how many times each phrase shows up in that array
         HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
 
-        // Print out the sorted phrases
+        // Sort and print out the top 100 duplicated phrases
         topOneHundred(phraseCounts);
 
     }
@@ -50,6 +50,8 @@ public class Solution {
 
             // Create new three words strings
             String phrase = trimWord1 + " " + trimWord2 + " " + trimWord3;
+
+//            phrase.replaceAll("- ", "");
 
             // Add to the array
             phrases.add(phrase);
