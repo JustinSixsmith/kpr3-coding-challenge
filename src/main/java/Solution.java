@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Sequence {
+public class Solution {
     public static void main(String[] args) {
 
         //        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
@@ -29,6 +29,9 @@ public class Sequence {
 
         // Print out the sorted phrases
         topOneHundred(phraseCounts);
+
+
+        System.out.println(createPhraseArray("This is a string."));
     }
 
     public static ArrayList<String> createPhraseArray(String text) {
@@ -66,8 +69,8 @@ public class Sequence {
             } else {
                 phraseCounts.put(phrase, 1);
             }
-            phraseCounts.remove("  ");
         }
+        phraseCounts.remove("  ");
         return phraseCounts;
     }
 
