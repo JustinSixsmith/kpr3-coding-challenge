@@ -4,16 +4,12 @@ import java.util.stream.Collectors;
 
 public class Solution {
     public static void main(String[] args) {
-
-        // Initialize list for the file paths, and a string that will hold all the text
-        List<File> filePaths = new ArrayList<>();
+        // Initialize a string that will hold all the text
         String fileContent = "";
 
-        // Add the file paths to the file path list
-        for (String path :
-                args) {
-            filePaths.add(new File(path));
-        }
+        // Add the file paths to a file path list
+        List<File> filePaths = addFilePaths(args);
+        System.out.println(filePaths);
 
         // Scan each file and concat each line to the content string
         fileContent = makeABigString(filePaths, fileContent);
@@ -27,6 +23,15 @@ public class Solution {
         // Sort and print out the top 100 duplicated phrases
         topOneHundred(phraseCounts);
 
+    }
+
+    public static List<File> addFilePaths(String[] args) {
+        List<File> filePaths = new ArrayList<>();
+        for (String path :
+                args) {
+            filePaths.add(new File(path));
+        }
+        return filePaths;
     }
 
     public static String makeABigString(List<File> filePaths, String fileContent) {
