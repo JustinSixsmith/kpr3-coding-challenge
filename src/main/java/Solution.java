@@ -7,19 +7,39 @@ public class Solution {
 
         //        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
 
-        // Scan a file taken in as args
-        File file = new File(args[0]);
+        List<File> files = new ArrayList<>();
         String fileContent = "";
 
-        try {
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNextLine()) {
-                    fileContent = fileContent.concat(scanner.nextLine()) + " \n";
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        for (String path :
+                args) {
+            files.add(new File(path));
         }
+
+        for (File file :
+                files) {
+            try {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    fileContent = fileContent.concat(scanner.nextLine()) + " \n";
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+//        // Scan a file taken in as args
+//        File file = new File(args[0]);
+//        String fileContent = "";
+//
+//        try {
+//            Scanner scanner = new Scanner(file);
+//
+//            while (scanner.hasNextLine()) {
+//                fileContent = fileContent.concat(scanner.nextLine()) + " \n";
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
 
         // Make an array out of the file with each element consisting of three sequential words
         ArrayList<String> phraseArray = createPhraseArray(fileContent);
@@ -42,21 +62,42 @@ public class Solution {
 
         // Iterate over words array
         for (int i = 0; i < words.length - 2; i++) {
+            String trimWord1 = removeSingleQuote(words[i]);
+            String trimWord2 = removeSingleQuote(words[i + 1]);
+            String trimWord3 = removeSingleQuote(words[i + 2]);
 
             // Trim spaces around each word, make lower case, and remove punctuation
-            String trimWord1 = words[i].toLowerCase().trim().replaceAll("[^a-z-']", "");
-            String trimWord2 = words[i + 1].toLowerCase().trim().replaceAll("[^a-z-']", "");
-            String trimWord3 = words[i + 2].toLowerCase().trim().replaceAll("[^a-z-']", "");
+            trimWord1 = trimWord1.toLowerCase().trim().replaceAll("[^a-z-']", "");
+            trimWord2 = trimWord2.toLowerCase().trim().replaceAll("[^a-z-']", "");
+            trimWord3 = trimWord3.toLowerCase().trim().replaceAll("[^a-z-']", "");
 
             // Create new three words strings
             String phrase = trimWord1 + " " + trimWord2 + " " + trimWord3;
-
-//            phrase.replaceAll("- ", "");
 
             // Add to the array
             phrases.add(phrase);
         }
         return phrases;
+    }
+
+    private static String removeSingleQuote(String word) {
+        char firstChar = word.charAt(0);
+        char lastChar = word.charAt(word.length() - 1);
+        String subWord = "";
+
+        if (firstChar == '\'') {
+            System.out.println("Open single quote");
+            subWord = word.substring(1);
+            System.out.println(subWord);
+        }
+        if (lastChar == '\'') {
+            System.out.println("Close sing quote");
+            subWord = word.substring(0, word.length()-1);
+            System.out.println(subWord);
+        } else {
+            subWord = word;
+        }
+        return subWord;
     }
 
     public static HashMap<String, Integer> countPhrases(ArrayList<String> phrases) {

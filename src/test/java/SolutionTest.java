@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
     public static final ArrayList<String> TEST_ARRAY = new ArrayList<>(Arrays.asList("this is a", "is a test"));
-    public static final String[] SAMPLE_TEXT_FILE = {"src/main/resources/texts/sample.txt"};
+    public static final String[] SAMPLE_TEXT_FILE = {"src/main/resources/texts/sample.txt", "src/main/resources/texts/sample.txt"};
 
     @Test
     void main() {
@@ -25,11 +25,6 @@ class SolutionTest {
         String testString = "Th!is. is&* a Test#@";
         assertEquals(TEST_ARRAY, Solution.createPhraseArray(testString));
     }
-
-    @Test
-    void makeLowerCaseTest() {
-        String testString = "THIS IS A TEST";
-        assertEquals(TEST_ARRAY, Solution.createPhraseArray(testString));
 
     @Test
     void countPhrases() {
