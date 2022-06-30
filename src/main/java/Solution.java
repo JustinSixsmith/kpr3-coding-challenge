@@ -5,41 +5,18 @@ import java.util.stream.Collectors;
 public class Solution {
     public static void main(String[] args) {
 
-        //        String path = "/Users/justinsixsmith/IdeaProjects/kpr3-coding-challenge/src/main/resources/texts/moby-dick.txt";
-
-        List<File> files = new ArrayList<>();
+        // Initialize list for the file paths, and a string that will hold all the text
+        List<File> filePaths = new ArrayList<>();
         String fileContent = "";
 
+        // Add the file paths to the file path list
         for (String path :
                 args) {
-            files.add(new File(path));
+            filePaths.add(new File(path));
         }
 
-        for (File file :
-                files) {
-            try {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    fileContent = fileContent.concat(scanner.nextLine()) + " \n";
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-//        // Scan a file taken in as args
-//        File file = new File(args[0]);
-//        String fileContent = "";
-//
-//        try {
-//            Scanner scanner = new Scanner(file);
-//
-//            while (scanner.hasNextLine()) {
-//                fileContent = fileContent.concat(scanner.nextLine()) + " \n";
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        // Scan each file and concat each line to the content string
+        fileContent = makeABigString(filePaths, fileContent);
 
         // Make an array out of the file with each element consisting of three sequential words
         ArrayList<String> phraseArray = createPhraseArray(fileContent);
@@ -52,6 +29,31 @@ public class Solution {
 
     }
 
+    public static String makeABigString(List<File> filePaths, String fileContent) {
+        for (File file :
+                filePaths) {
+            try {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String nextLine = scanner.nextLine();
+                    // Check to see if line is empty
+                    if(!Objects.equals(nextLine, "")) {
+                        // If the last character is a hyphen, remove the hyphen and concat to next line w/no space
+                        if (nextLine.charAt(nextLine.length() - 1) == '-') {
+                            nextLine = nextLine.substring(0, nextLine.length() - 1);
+                            fileContent = fileContent.concat(nextLine);
+                            // Otherwise, concat lines with a space
+                        } else {
+                            fileContent = fileContent.concat(nextLine) + " ";
+                        }
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileContent;
+    }
 
     public static ArrayList<String> createPhraseArray(String text) {
         // Split text into individual words
@@ -67,9 +69,9 @@ public class Solution {
             String trimWord3 = removeSingleQuote(words[i + 2]);
 
             // Trim spaces around each word, make lower case, and remove punctuation
-            trimWord1 = trimWord1.toLowerCase().trim().replaceAll("[^a-z-']", "");
-            trimWord2 = trimWord2.toLowerCase().trim().replaceAll("[^a-z-']", "");
-            trimWord3 = trimWord3.toLowerCase().trim().replaceAll("[^a-z-']", "");
+            trimWord1 = trimWord1.toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
+            trimWord2 = trimWord2.toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
+            trimWord3 = trimWord3.toLowerCase().trim().replaceAll("[^a-z0-9']", "");
 
             // Create new three words strings
             String phrase = trimWord1 + " " + trimWord2 + " " + trimWord3;
@@ -81,23 +83,23 @@ public class Solution {
     }
 
     private static String removeSingleQuote(String word) {
-        char firstChar = word.charAt(0);
-        char lastChar = word.charAt(word.length() - 1);
-        String subWord = "";
-
-        if (firstChar == '\'') {
-            System.out.println("Open single quote");
-            subWord = word.substring(1);
-            System.out.println(subWord);
-        }
-        if (lastChar == '\'') {
-            System.out.println("Close sing quote");
-            subWord = word.substring(0, word.length()-1);
-            System.out.println(subWord);
-        } else {
-            subWord = word;
-        }
-        return subWord;
+//        char firstChar = word.charAt(0);
+//        char lastChar = word.charAt(word.length() - 1);
+//        String subWord = "";
+//
+//        if (firstChar == '\'') {
+//            System.out.println("Open single quote");
+//            subWord = word.substring(1);
+//            System.out.println(subWord);
+//        }
+//        if (lastChar == '\'') {
+//            System.out.println("Close sing quote");
+//            subWord = word.substring(0, word.length()-1);
+//            System.out.println(subWord);
+//        } else {
+//            subWord = word;
+//        }
+        return word;
     }
 
     public static HashMap<String, Integer> countPhrases(ArrayList<String> phrases) {

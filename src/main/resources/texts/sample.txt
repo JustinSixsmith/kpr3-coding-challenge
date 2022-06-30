@@ -3,4 +3,5 @@ Looking at all of these possibilities
 for the tests to test.
 
 How will this application
-"WORK" with all of these possibilities?
+"WORK" with all of these poss-
+ibilities?
