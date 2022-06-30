@@ -9,7 +9,6 @@ public class Solution {
 
         // Add the file paths to a file path list
         List<File> filePaths = addFilePaths(args);
-        System.out.println(filePaths);
 
         // Scan each file and concat each line to the content string
         fileContent = makeABigString(filePaths, fileContent);
@@ -42,7 +41,7 @@ public class Solution {
                 while (scanner.hasNextLine()) {
                     String nextLine = scanner.nextLine();
                     // Check to see if line is empty
-                    if(!Objects.equals(nextLine, "")) {
+                    if (!Objects.equals(nextLine, "")) {
                         // If the last character is a hyphen, remove the hyphen and concat to next line w/no space
                         if (nextLine.charAt(nextLine.length() - 1) == '-') {
                             nextLine = nextLine.substring(0, nextLine.length() - 1);
@@ -69,14 +68,15 @@ public class Solution {
 
         // Iterate over words array
         for (int i = 0; i < words.length - 2; i++) {
-            String trimWord1 = removeSingleQuote(words[i]);
-            String trimWord2 = removeSingleQuote(words[i + 1]);
-            String trimWord3 = removeSingleQuote(words[i + 2]);
 
             // Trim spaces around each word, make lower case, and remove punctuation
-            trimWord1 = trimWord1.toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
-            trimWord2 = trimWord2.toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
-            trimWord3 = trimWord3.toLowerCase().trim().replaceAll("[^a-z0-9']", "");
+            String trimWord1 = words[i].toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
+            String trimWord2 = words[i + 1].toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
+            String trimWord3 = words[i + 2].toLowerCase().trim().replaceAll("[^a-z0-9']", "");
+
+            trimWord1 = removeSingleQuotes(trimWord1);
+            trimWord2 = removeSingleQuotes(trimWord2);
+            trimWord3 = removeSingleQuotes(trimWord3);
 
             // Create new three words strings
             String phrase = trimWord1 + " " + trimWord2 + " " + trimWord3;
@@ -87,23 +87,13 @@ public class Solution {
         return phrases;
     }
 
-    private static String removeSingleQuote(String word) {
-//        char firstChar = word.charAt(0);
-//        char lastChar = word.charAt(word.length() - 1);
-//        String subWord = "";
-//
-//        if (firstChar == '\'') {
-//            System.out.println("Open single quote");
-//            subWord = word.substring(1);
-//            System.out.println(subWord);
-//        }
-//        if (lastChar == '\'') {
-//            System.out.println("Close sing quote");
-//            subWord = word.substring(0, word.length()-1);
-//            System.out.println(subWord);
-//        } else {
-//            subWord = word;
-//        }
+    static String removeSingleQuotes(String word) {
+            if (word.charAt(0) == '\'') {
+                word = word.substring(1);
+            }
+            if (word.charAt(word.length() - 1) == '\'') {
+                word = word.substring(0, word.length() - 1);
+            }
         return word;
     }
 

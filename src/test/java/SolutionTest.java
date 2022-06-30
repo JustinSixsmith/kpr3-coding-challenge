@@ -1,5 +1,4 @@
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -11,9 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
     public static final ArrayList<String> TEST_ARRAY = new ArrayList<>(Arrays.asList("this is a", "is a test"));
-    public static final String SIMPLE_TEXT_FILE = "src/main/resources/texts/simple.txt";
-    public static final String TWO_WORD_FILE = "src/main/resources/texts/2-word-catcher.txt";
-    public static final String[] TEST_ARGS = {SIMPLE_TEXT_FILE, TWO_WORD_FILE};
+    public static final String SIMPLE_TEXT_PATH = "src/main/resources/texts/simple.txt";
+    public static final String TWO_WORD_PATH = "src/main/resources/texts/2-word-catcher.txt";
+    public static final String[] SINGLE_TEST_ARGS = {SIMPLE_TEXT_PATH};
+    public static final String[] TEST_ARGS = {SIMPLE_TEXT_PATH, TWO_WORD_PATH};
+    public static final List<File> SINGLE_TEST_FILE = new ArrayList<>();
     public static final List<File> TEST_FILES = new ArrayList<>();
 
     @Before
@@ -21,22 +22,35 @@ class SolutionTest {
     }
 
     @Test
-    void createAFileArrayTest() {
-        TEST_FILES.add(new File(SIMPLE_TEXT_FILE));
-        TEST_FILES.add(new File(TWO_WORD_FILE));
+    void createASingleFileListTest() {
+        SINGLE_TEST_FILE.add(new File(SIMPLE_TEXT_PATH));
+        assertEquals(SINGLE_TEST_FILE, Solution.addFilePaths(SINGLE_TEST_ARGS));
+    }
+
+    @Test
+    void createAMultipleFilesListTest() {
+        TEST_FILES.add(new File(SIMPLE_TEXT_PATH));
+        TEST_FILES.add(new File(TWO_WORD_PATH));
         assertEquals(TEST_FILES, Solution.addFilePaths(TEST_ARGS));
     }
 
     @Test
-    void makeAStringFromATextFileTest() {
-        String simpleString = "This is a test.";
-        assertEquals(TEST_ARRAY, Solution.createPhraseArray(simpleString));
+    void makeArrayFromStringTest() {
+        String testString = "This is a test.";
+        assertEquals(TEST_ARRAY, Solution.createPhraseArray(testString));
     }
 
     @Test
     void removePunctuationTest() {
         String testString = "Th!is. is&* a Test#@";
         assertEquals(TEST_ARRAY, Solution.createPhraseArray(testString));
+    }
+
+    @Test
+    void removeSingleQuotesTest() {
+        String sample = "can’t 'can’t can’t won't wont' won't";
+        String expected = "can't can't can't won't wont won't";
+        assertEquals(expected, Solution.removeSingleQuotes(sample));
     }
 
     @Test
