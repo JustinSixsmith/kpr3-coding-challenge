@@ -13,11 +13,14 @@ public class Solution {
         // Scan each file and concat each line to the content string
         fileContent = makeABigString(filePaths, fileContent);
 
-        // Make an array out of the file with each element consisting of three sequential words
-        ArrayList<String> phraseArray = createPhraseArray(fileContent);
+        // Split the words and clean them up
+        String[] singleWords = separateWords(fileContent);
+
+        // Make an list out of single words with each element consisting of three sequential words
+        LinkedList<String> phraseList = createPhraseList(singleWords);
 
         // Count how many times each phrase shows up in that array
-        HashMap<String, Integer> phraseCounts = countPhrases(phraseArray);
+        HashMap<String, Integer> phraseCounts = countPhrases(phraseList);
 
         // Sort and print out the top 100 duplicated phrases
         topOneHundred(phraseCounts);
@@ -59,29 +62,20 @@ public class Solution {
         return fileContent;
     }
 
-    public static ArrayList<String> createPhraseArray(String text) {
+    public static String[] separateWords(String fileContent) {
+        // Remove punctuation
+        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-\' ]", "");
+
         // Split text into individual words
-        String[] words = text.split(" ");
+        return cleanString.split(" ");
+    }
 
-        // Initialize array of three sequential word phrases
-        ArrayList<String> phrases = new ArrayList<>();
+    public static LinkedList<String> createPhraseList(String[] words) {
+        LinkedList<String> phrases = new LinkedList<>();
 
-        // Iterate over words array
+        // Each element in the list is a phrase with three consecutive words
         for (int i = 0; i < words.length - 2; i++) {
-
-            // Trim spaces around each word, make lower case, and remove punctuation
-            String trimWord1 = words[i].toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
-            String trimWord2 = words[i + 1].toLowerCase().trim().replaceAll("[^a-z0-9-']", "");
-            String trimWord3 = words[i + 2].toLowerCase().trim().replaceAll("[^a-z0-9']", "");
-
-            trimWord1 = removeSingleQuotes(trimWord1);
-            trimWord2 = removeSingleQuotes(trimWord2);
-            trimWord3 = removeSingleQuotes(trimWord3);
-
-            // Create new three words strings
-            String phrase = trimWord1 + " " + trimWord2 + " " + trimWord3;
-
-            // Add to the array
+            String phrase = words[i] + " " + words[i + 1] + " " + words[i + 2];
             phrases.add(phrase);
         }
         return phrases;
@@ -89,7 +83,9 @@ public class Solution {
 
     static String removeSingleQuotes(String word) {
             if (word.charAt(0) == '\'') {
+                System.out.println("Before: " + word);
                 word = word.substring(1);
+                System.out.println("After: " + word);
             }
             if (word.charAt(word.length() - 1) == '\'') {
                 word = word.substring(0, word.length() - 1);
@@ -97,7 +93,7 @@ public class Solution {
         return word;
     }
 
-    public static HashMap<String, Integer> countPhrases(ArrayList<String> phrases) {
+    public static HashMap<String, Integer> countPhrases(LinkedList<String> phrases) {
         // Create Hashmap for storing key and value of times found
         HashMap<String, Integer> phraseCounts = new HashMap<>();
 
@@ -109,6 +105,7 @@ public class Solution {
                 phraseCounts.put(phrase, 1);
             }
         }
+//        phraseCounts.remove(" ");
         phraseCounts.remove("  ");
         return phraseCounts;
     }

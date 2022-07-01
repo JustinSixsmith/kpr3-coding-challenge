@@ -35,25 +35,6 @@ class SolutionTest {
     }
 
     @Test
-    void makeArrayFromStringTest() {
-        String testString = "This is a test.";
-        assertEquals(TEST_ARRAY, Solution.createPhraseArray(testString));
-    }
-
-    @Test
-    void removePunctuationTest() {
-        String testString = "Th!is. is&* a Test#@";
-        assertEquals(TEST_ARRAY, Solution.createPhraseArray(testString));
-    }
-
-    @Test
-    void removeSingleQuotesTest() {
-        String sample = "can’t 'can’t can’t won't wont' won't";
-        String expected = "can't can't can't won't wont won't";
-        assertEquals(expected, Solution.removeSingleQuotes(sample));
-    }
-
-    @Test
     void countPhrases() {
     }
 }
