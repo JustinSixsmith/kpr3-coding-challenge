@@ -4,19 +4,16 @@ import java.util.stream.Collectors;
 
 public class Solution {
     public static void main(String[] args) {
-        // Initialize a string that will hold all the text
-        String fileContent = "";
-
-        // Add the file paths to a file path list
+        // Add the file path strings to a file path list
         List<File> filePaths = addFilePaths(args);
 
-        // Scan each file and concat each line to the content string
-        fileContent = makeABigString(filePaths, fileContent);
+        // Scan the files and concat each line to the content string
+        String fileContent = makeABigString(filePaths);
 
         // Split the words and clean them up
         String[] singleWords = separateWords(fileContent);
 
-        // Make an list out of single words with each element consisting of three sequential words
+        // Make a phase list from the individual words, with each element consisting of three sequential words
         LinkedList<String> phraseList = createPhraseList(singleWords);
 
         // Count how many times each phrase shows up in that array
@@ -36,7 +33,8 @@ public class Solution {
         return filePaths;
     }
 
-    public static String makeABigString(List<File> filePaths, String fileContent) {
+    public static String makeABigString(List<File> filePaths) {
+        String fileContent = "";
         for (File file :
                 filePaths) {
             try {
@@ -122,4 +120,3 @@ public class Solution {
     }
 
 }
-
