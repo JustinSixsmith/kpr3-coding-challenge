@@ -62,7 +62,7 @@ public class Solution {
 
     public static String[] separateWords(String fileContent) {
         // Remove punctuation
-        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-\' ]", "");
+        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-' ]", "");
 
         // Split text into individual words
         return cleanString.split(" ");
@@ -70,6 +70,12 @@ public class Solution {
 
     public static LinkedList<String> createPhraseList(String[] words) {
         LinkedList<String> phrases = new LinkedList<>();
+
+        // Remove single quotes
+        for (String word:
+             words) {
+            removeSingleQuotes(word);
+        }
 
         // Each element in the list is a phrase with three consecutive words
         for (int i = 0; i < words.length - 2; i++) {
@@ -81,9 +87,7 @@ public class Solution {
 
     static String removeSingleQuotes(String word) {
             if (word.charAt(0) == '\'') {
-                System.out.println("Before: " + word);
                 word = word.substring(1);
-                System.out.println("After: " + word);
             }
             if (word.charAt(word.length() - 1) == '\'') {
                 word = word.substring(0, word.length() - 1);

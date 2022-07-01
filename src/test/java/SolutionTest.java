@@ -35,6 +35,12 @@ class SolutionTest {
     }
 
     @Test
+    void removeSingleQuotesTest() {
+        String expected = "can't";
+        assertEquals(expected, Solution.removeSingleQuotes("'can't'"));
+    }
+
+    @Test
     void countPhrases() {
     }
 }
