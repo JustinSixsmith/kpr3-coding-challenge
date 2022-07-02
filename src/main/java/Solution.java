@@ -53,6 +53,7 @@ public class Solution {
                         }
                     }
                 }
+                scanner.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -72,26 +73,31 @@ public class Solution {
         LinkedList<String> phrases = new LinkedList<>();
 
         // Remove single quotes
-        for (String word:
-             words) {
-            removeSingleQuotes(word);
+        for (String word :
+                words) {
+            if (!word.equals("")) {
+                removeSingleQuotes(word);
+            }
         }
 
         // Each element in the list is a phrase with three consecutive words
         for (int i = 0; i < words.length - 2; i++) {
-            String phrase = words[i] + " " + words[i + 1] + " " + words[i + 2];
+            String phrase = null;
+            if (!words[0].equals("")) {
+                phrase = words[i] + " " + words[i + 1] + " " + words[i + 2];
+            }
             phrases.add(phrase);
         }
         return phrases;
     }
 
     static String removeSingleQuotes(String word) {
-            if (word.charAt(0) == '\'') {
-                word = word.substring(1);
-            }
-            if (word.charAt(word.length() - 1) == '\'') {
-                word = word.substring(0, word.length() - 1);
-            }
+        if (word.charAt(0) == '\'') {
+            word = word.substring(1);
+        }
+        if (word.charAt(word.length() - 1) == '\'') {
+            word = word.substring(0, word.length() - 1);
+        }
         return word;
     }
 
@@ -107,7 +113,8 @@ public class Solution {
                 phraseCounts.put(phrase, 1);
             }
         }
-//        phraseCounts.remove(" ");
+        phraseCounts.remove("");
+        phraseCounts.remove(" ");
         phraseCounts.remove("  ");
         return phraseCounts;
     }
