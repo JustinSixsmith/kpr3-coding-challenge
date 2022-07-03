@@ -1,6 +1,15 @@
 # kpr3-coding-challenge
 
 ## Find the 100 most common three word sequences in descending order.
-1. Open the command terminal and navigate to the root directory of the project (kp3-coding-challenge).
+1. First, open the Terminal and navigate to the root directory of the project, kp3-coding-challenge.
 2. From here, be sure to first compile the code with the command: `javac src/main/java/Solution.java`
-3. 
+3. To run the application, enter the command, `java` , the path to the Solution class,`src/main/java/Solution.java`, followed by the path to the text file of your choosing. An example would look something like this:
+
+`java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt`
+4. To run more than one file at a time, add a space and enter the path to any additional file(s):
+
+`java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt src/main/resources/texts/alice-in-wonderland.txt`
+
+## Test methods in the application using JUnit
+1. Tests can be found within the SolutionTest Class. _src/test/java/SolutionTest_
+2. 
