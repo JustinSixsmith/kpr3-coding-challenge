@@ -6,10 +6,18 @@
 3. To run the application, enter the command, `java` , the path to the Solution class,`src/main/java/Solution.java`, followed by the path to the text file of your choosing. An example would look something like this:
 
 `java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt`
-4. To run more than one file at a time, add a space and enter the path to any additional file(s):
+4. The results will (probably) be:
+```
+   the sperm whale - 85
+   the white whale - 71
+   of the whale - 67
+```
+5. To run more than one file at a time, add a space and enter the path to any additional file(s):
 
 `java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt src/main/resources/texts/alice-in-wonderland.txt`
 
-## Test methods in the application using JUnit
-1. Tests can be found within the SolutionTest Class. _src/test/java/SolutionTest_
-2. 
+## JUnit testing
+1. Tests can be found within the SolutionTest Class. _src/test/java/SolutionTest_ and can be performed in a similar way
+2. From the command line in the Terminal, type java, space, followed by the path to the test class listed above.
+
+`java /src/test/java/SolutionTest.java`
