@@ -12,7 +12,7 @@
    the white whale - 71
    of the whale - 67
 ```
-5. To run more than one file at a time, add a space and enter the path to any additional file(s):
+5. To run more than one file at a time, add a space and enter the path(s) to any additional file(s) you'd like to include.
 
 `java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt src/main/resources/texts/alice-in-wonderland.txt`
 
@@ -21,3 +21,7 @@
 2. From the command line in the Terminal, type java, space, followed by the path to the test class listed above.
 
 `java /src/test/java/SolutionTest.java`
+
+## Next steps
+1. Still working on getting the application to work with other languages, particularly when it comes to splitting strings using spaces as the delimiter.
+2. Even though tests pass with removing single quotes, I was unable to get replaceAll to ignore removing single quotes in the separateWords method.
