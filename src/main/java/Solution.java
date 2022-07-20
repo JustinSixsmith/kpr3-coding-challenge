@@ -66,7 +66,7 @@ public class Solution {
         String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-' ]", "");
 
         // Split text into individual words
-        return cleanString.split(" ");
+        return cleanString.split("[ ]+");
     }
 
     public static LinkedList<String> createPhraseList(String[] words) {
@@ -83,7 +83,7 @@ public class Solution {
         // Each element in the list is a phrase with three consecutive words
         for (int i = 0; i < words.length - 2; i++) {
             String phrase = null;
-            if (!words[0].equals("")) {
+            if (words[i].length() > 0) {
                 phrase = words[i] + " " + words[i + 1] + " " + words[i + 2];
             }
             phrases.add(phrase);
@@ -113,6 +113,7 @@ public class Solution {
                 phraseCounts.put(phrase, 1);
             }
         }
+        phraseCounts.remove(null);
         phraseCounts.remove("");
         phraseCounts.remove(" ");
         phraseCounts.remove("  ");

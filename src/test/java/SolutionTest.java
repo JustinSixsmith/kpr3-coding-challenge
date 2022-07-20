@@ -46,7 +46,7 @@ class SolutionTest {
 //        String[] expected = {"this", "is", "a", "test"};
 //        assertEquals(expected, Solution.separateWords(sampleString));
 //    }
-//
+
 //    @Test
 //    void makeLowerCaseTest() {
 //        String sampleString = "THIS IS A TEST";
