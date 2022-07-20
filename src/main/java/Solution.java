@@ -63,7 +63,7 @@ public class Solution {
 
     public static String[] separateWords(String fileContent) {
         // Remove punctuation
-        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-' ]", "");
+        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-' ]", "").trim();
 
         // Split text into individual words
         return cleanString.split("[ ]+");
