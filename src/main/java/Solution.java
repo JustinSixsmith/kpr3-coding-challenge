@@ -122,9 +122,13 @@ public class Solution {
 
     private static void topOneHundred(Map<String, Integer> map) {
         // List w/top 100 keys
-        List<String> keys = map.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(100).map(Map.Entry::getKey).collect(Collectors.toList());
+        List<String> keys = map.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(100).map(Map.Entry::getKey).collect(Collectors.toList());
         // List w/top 100 values
-        List<Integer> values = map.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(100).map(Map.Entry::getValue).collect(Collectors.toList());
+        List<Integer> values = map.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(100).map(Map.Entry::getValue).collect(Collectors.toList());
 
         for (int i = 0; i < keys.size(); i++) {
             System.out.println(keys.get(i) + " - " + values.get(i));

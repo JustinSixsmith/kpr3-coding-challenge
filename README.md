@@ -6,11 +6,12 @@
 3. To run the application, enter the command, `java` , the path to the Solution class,`src/main/java/Solution.java`, followed by the path to the text file of your choosing. An example would look something like this:
 
 `java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt`
-4. The results will (probably) be:
+4. The results should be:
 ```
    the sperm whale - 85
    the white whale - 71
    of the whale - 67
+   etc...
 ```
 5. To run more than one file at a time, add a space and enter the path(s) to any additional file(s) you'd like to include.
 
