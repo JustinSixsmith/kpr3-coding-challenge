@@ -26,8 +26,7 @@ public class Solution {
 
     public static List<File> addFilePaths(String[] args) {
         List<File> filePaths = new ArrayList<>();
-        for (String path :
-                args) {
+        for (String path : args) {
             filePaths.add(new File(path));
         }
         return filePaths;
@@ -35,8 +34,7 @@ public class Solution {
 
     public static String makeABigString(List<File> filePaths) {
         String fileContent = "";
-        for (File file :
-                filePaths) {
+        for (File file : filePaths) {
             try {
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNextLine()) {

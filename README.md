@@ -8,10 +8,10 @@
 `java src/main/java/Solution.java src/main/resources/texts/moby-dick.txt`
 4. The results should be:
 ```
-   the sperm whale - 85
-   the white whale - 71
-   of the whale - 67
-   etc...
+the sperm whale - 86
+of the whale - 78
+the white whale - 71
+etc...
 ```
 5. To run more than one file at a time, add a space and enter the path(s) to any additional file(s) you'd like to include.
 
