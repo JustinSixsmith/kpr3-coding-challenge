@@ -63,7 +63,7 @@ public class ThreeWordSequences {
             if (count >= 100) {
                 break;
             }
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " - " + entry.getValue());
             count++;
         }
     }

@@ -4,6 +4,14 @@ import java.util.stream.Collectors;
 
 public class Solution {
     public static void main(String[] args) {
+
+        if (args.length == 0) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Please enter file path(s) to text files: ");
+            args = new String[]{scanner.nextLine()};
+            scanner.close();
+        }
+
         // Add the file path strings to a file path list
         List<File> filePaths = addFilePaths(args);
 
@@ -61,18 +69,17 @@ public class Solution {
 
     public static String[] separateWords(String fileContent) {
         // Remove punctuation
-        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-' ]", "").trim();
+        String cleanString = fileContent.toLowerCase().replaceAll("[^a-z0-9-'\\s]", "").trim();
 
         // Split text into individual words
-        return cleanString.split("[ ]+");
+        return cleanString.split("\\s+");
     }
 
     public static LinkedList<String> createPhraseList(String[] words) {
         LinkedList<String> phrases = new LinkedList<>();
 
         // Remove single quotes
-        for (String word :
-                words) {
+        for (String word : words) {
             if (!word.equals("")) {
                 removeSingleQuotes(word);
             }
@@ -112,9 +119,9 @@ public class Solution {
             }
         }
         phraseCounts.remove(null);
-        phraseCounts.remove("");
-        phraseCounts.remove(" ");
-        phraseCounts.remove("  ");
+//        phraseCounts.remove("");
+//        phraseCounts.remove(" ");
+//        phraseCounts.remove("  ");
         return phraseCounts;
     }
 
