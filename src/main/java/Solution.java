@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 public class Solution {
     public static void main(String[] args) {
 
+        // If there are no given file path provided when running the application from the terminal, take the file path from stdin.
         if (args.length == 0) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Please enter file path(s) to text files: ");
@@ -13,7 +14,12 @@ public class Solution {
         }
 
         // Add the file path strings to a file path list
-        List<File> filePaths = addFilePaths(args);
+        List<File> filePaths;
+        try {
+            filePaths = addFilePaths(args);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         // Scan the files and concat each line to the content string
         String fileContent = makeABigString(filePaths);
@@ -21,7 +27,8 @@ public class Solution {
         // Split the words and clean them up
         String[] singleWords = separateWords(fileContent);
 
-        // Make a phase list from the individual words, with each element consisting of three sequential words
+        // Make a phase list from the individual w
+        // ords, with each element consisting of three sequential words
         LinkedList<String> phraseList = createPhraseList(singleWords);
 
         // Count how many times each phrase shows up in that array
@@ -118,10 +125,7 @@ public class Solution {
                 phraseCounts.put(phrase, 1);
             }
         }
-        phraseCounts.remove(null);
-//        phraseCounts.remove("");
-//        phraseCounts.remove(" ");
-//        phraseCounts.remove("  ");
+//        phraseCounts.remove(null);
         return phraseCounts;
     }
 

@@ -40,8 +40,10 @@ public class ThreeWordSequences {
     public static void main(String[] args) {
         Map<String, Integer> map = new HashMap<>();
         if (args.length == 0) {
-            System.out.println("Please provide at least one file path as a command-line argument.");
-            return;
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please provide at least one file path: ");
+                args = new String[]{scanner.nextLine()};
+            scanner.close();
         }
         for (String filePath : args) {
             try {
