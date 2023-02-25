@@ -1,9 +1,13 @@
 import java.io.*;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Solution {
     public static void main(String[] args) {
+
+        var start = LocalTime.now();
 
         // If there are no given file path provided when running the application from the terminal, take the file path from stdin.
         if (args.length == 0) {
@@ -37,6 +41,9 @@ public class Solution {
         // Sort and print out the top 100 duplicated phrases
         topOneHundred(phraseCounts);
 
+        var end = LocalTime.now();
+        var duration = Duration.between(start, end);
+        System.out.println("Retrieved all frequencies in " + duration.toMillis() + " msec.");
     }
 
     public static List<File> addFilePaths(String[] args) {
